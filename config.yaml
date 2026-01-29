@@ -1,0 +1,22 @@
+data:
+  train_path: "s3://projectcontinue/data/train/BostonHousing.csv"
+test_path: "s3://projectcontinue/data/test/BostonHousing.csv"        
+  label_column: "medv"                 
+
+model:
+  type: "random_forest_regressor"          
+  params:                                
+    n_estimators: 100
+    max_depth: 5
+    random_state: 42
+
+
+training:
+  batch_size: 32       
+  epochs: 10           
+  shuffle: True        
+
+sagemaker:
+  instance_type: ml.m5.large
+  instance_count: 1
+
