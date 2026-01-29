@@ -1,0 +1,22 @@
+name: SageMaker Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  run_pipeline:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          role-to-assume: arn:aws:iam::<AWS_ACCOUNT_ID>:role/GitHubActions-SageMaker-Role
+          aws-region: eu-north-1
+
+      - name: Trigger SageMaker Pipeline
+        run: |
+          aws sagemaker start-pipeline-execution             --pipeline-name MyMLPipelineExecution
